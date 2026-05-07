@@ -1,0 +1,12 @@
+# Secrets locaux — NE JAMAIS COMMITTER
+settings.secrets.json
+
+# Backups
+.claude-backups/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

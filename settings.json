@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/usr/local/bin/exiftool *)",
+      "Bash(git *)",
+      "Bash(pip *)",
+      "Bash(pip3 *)",
+      "Bash(python *)",
+      "Bash(python3 *)",
+      "Bash(grep *)",
+      "Bash(lessc *)",
+      "Bash(fswatch *)",
+      "Bash(npm *)",
+      "Bash(bundle exec *)",
+      "Bash(node *)",
+      "Bash(curl *)",
+      "Bash(kill *)",
+      "Read(//tmp/**)"
+    ]
+  },
+  "effortLevel": "high"
+}
