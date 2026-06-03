@@ -15,7 +15,9 @@
       "Bash(node *)",
       "Bash(curl *)",
       "Bash(kill *)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(dig *)",
+      "WebSearch"
     ]
   },
   "effortLevel": "high"
