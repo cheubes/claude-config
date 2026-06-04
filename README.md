@@ -7,7 +7,7 @@ Configuration personnelle pour Claude Code, versionnée et synchronisable.
 ```
 claude-config/
 ├── scripts/
-│   ├── push.sh       # Sync ~/.claude → repo
+│   ├── get.sh        # Sync ~/.claude → repo
 │   └── deploy.sh     # Sync repo → ~/.claude
 ├── hooks/            # Hooks Claude Code (PostToolUse, PreToolUse…)
 ├── commands/         # Slash commands personnalisées
@@ -21,26 +21,26 @@ claude-config/
 
 ```bash
 # 1. Rends les scripts exécutables
-chmod +x scripts/push.sh scripts/deploy.sh
+chmod +x scripts/get.sh scripts/deploy.sh
 
 # 2. Connecte au remote GitHub
 git remote add origin git@github.com:TON_USER/claude-config.git
 
-# 3. Premier push
-./scripts/push.sh
+# 3. Premier sync
+./scripts/get.sh
 ```
 
 ## Usage quotidien
 
 ```bash
 # Sauvegarder la config courante
-./scripts/push.sh
+./scripts/get.sh
 
 # Déployer sur une nouvelle machine
 ./scripts/deploy.sh
 
 # Tester sans modifier de fichiers
-./scripts/push.sh --dry-run
+./scripts/get.sh --dry-run
 ./scripts/deploy.sh --dry-run
 ```
 

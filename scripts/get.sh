@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# push.sh — Sync ~/.claude (config effective) vers le repo git
-# Usage : ./scripts/push.sh [--dry-run]
+# get.sh — Sync ~/.claude (config effective) vers le repo git
+# Usage : ./scripts/get.sh [--dry-run]
 
 set -euo pipefail
 
@@ -94,28 +94,4 @@ else
   info "Pas de dossier commands/ trouvé."
 fi
 
-# ── 5. Rapport git ─────────────────────────────────────────────────────────────
-if ! $DRY_RUN; then
-  echo ""
-  cd "$REPO_DIR"
-  git add -A
-
-  if git diff --cached --quiet; then
-    info "Aucune modification détectée. Repo déjà à jour."
-  else
-    info "Modifications détectées :"
-    git diff --cached --stat
-    echo ""
-    read -rp "Committer maintenant ? (o/n) " answer
-    if [[ "$answer" =~ ^[oOyY]$ ]]; then
-      TIMESTAMP=$(date '+%Y-%m-%d %H:%M')
-      git commit -m "chore: sync Claude config ($TIMESTAMP)"
-      git push
-      info "Config poussée sur GitHub."
-    else
-      warn "Commit annulé. Les fichiers sont déjà stagés (git add -A fait)."
-    fi
-  fi
-fi
-
-info "push.sh terminé."
+info "get.sh terminé."
