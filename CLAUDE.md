@@ -1,4 +1,4 @@
-# Global Claude Instructions
+# Gestion des sources
 
-<!-- Tes instructions globales pour Claude Code ici -->
-<!-- Ce fichier est chargé automatiquement à chaque session -->
+Ne commit jamais sans que je te l’aie explicitement demandé.
+
