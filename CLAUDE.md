@@ -23,7 +23,23 @@ Avant de cloner, vérifie si la tâche peut être accomplie sans clonage (API Gi
 
 # Règles de code
 
+## Langue
 Écris tout le code en anglais : noms de fichiers, variables, fonctions, classes, constantes, commentaires, messages d'erreur, documentations, READMEs, etc.
+
+## Cohérence avec le codebase
+Suivre les conventions déjà présentes dans le projet (nommage, structure, style) plutôt qu'imposer ses propres préférences.
+
+## Minimalisme
+Ne pas ajouter d'abstractions, de généralisations ou de fonctionnalités au-delà de ce que la tâche demande. Trois lignes similaires valent mieux qu'une abstraction prématurée.
+
+## Commentaires
+Ne pas commenter par défaut. N'ajouter un commentaire que quand le "pourquoi" est non évident : une contrainte cachée, un contournement de bug, un comportement surprenant. Ne jamais expliquer ce que le code fait (les noms s'en chargent).
+
+## Nommage
+Préférer des noms explicites et descriptifs. Éviter les abréviations sauf si elles sont standard dans le domaine.
+
+## Nouvelles dépendances
+Ne pas ajouter de nouvelle dépendance sans en discuter d'abord avec l'utilisateur.
 
 ---
 
