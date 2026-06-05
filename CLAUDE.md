@@ -4,6 +4,11 @@ Ne commit jamais sans que je te l’aie explicitement demandé.
 
 Rédige toujours les messages de commit en anglais, sans exception.
 
+## Commits
+- Format : Conventional Commits (feat, fix, build, chore, docs, style, refactor, perf, test)
+- Langue : anglais
+- Longueur du titre : 72 caractères maximum
+
 # Règles de code
 
 Écris tout le code en anglais : noms de fichiers, variables, fonctions, classes, constantes, commentaires, messages d'erreur, documentations, READMEs, etc.
