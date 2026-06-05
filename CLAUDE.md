@@ -41,6 +41,12 @@ Préférer des noms explicites et descriptifs. Éviter les abréviations sauf si
 ## Nouvelles dépendances
 Ne pas ajouter de nouvelle dépendance sans en discuter d'abord avec l'utilisateur.
 
+## Scope
+Ne pas refactorer, nettoyer ou améliorer du code en dehors du périmètre explicite de la tâche. Un bug fix ne doit pas entraîner de cleanup non demandé. Si un problème adjacent est repéré, le signaler sans le corriger.
+
+## Tests
+Ne pas modifier ni supprimer des tests existants sans demande explicite. Ne pas supprimer des tests pour faire passer la CI. Écrire des tests uniquement quand la tâche le demande explicitement.
+
 ---
 
 # Règles de gestion des sources
