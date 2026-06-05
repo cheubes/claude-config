@@ -20,7 +20,8 @@
       "Bash(npx playwright *)",
       "Read(//tmp/**)",
       "Bash(dig *)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch"
     ]
   },
   "effortLevel": "high"
