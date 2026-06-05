@@ -17,6 +17,7 @@
       "Bash(curl *)",
       "Bash(kill *)",
       "Bash(chromium-cli *)",
+      "Bash(npx playwright *)",
       "Read(//tmp/**)",
       "Bash(dig *)",
       "WebSearch"
