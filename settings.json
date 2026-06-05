@@ -2,13 +2,15 @@
   "permissions": {
     "allow": [
       "Bash(/usr/local/bin/exiftool *)",
+      "Bash(find *)",
+      "Bash(gh *)",
       "Bash(git *)",
-      "Bash(pip *)",
+      "Bash(grep *)",
+      "Bash(jq *)",
+      "Bash(ls *)",
       "Bash(pip3 *)",
       "Bash(python *)",
       "Bash(python3 *)",
-      "Bash(python3.12 *)",
-      "Bash(grep *)",
       "Bash(lessc *)",
       "Bash(fswatch *)",
       "Bash(npm *)",
