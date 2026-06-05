@@ -37,6 +37,15 @@
             "command": "jq -r '.tool_input.command // \"\"' | grep -q 'git push' && exit 1 || exit 0"
           }
         ]
+      },
+      {
+        "matcher": "^(Write|Edit)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // \"\"' | grep -qE '(\\.env$|\\.env\\.|\\.pem$|\\.key$|id_rsa|id_ed25519|secrets?\\.|credentials)' && { echo 'Fichier sensible détecté, modification bloquée'; exit 1; } || exit 0"
+          }
+        ]
       }
     ],
     "Stop": [
