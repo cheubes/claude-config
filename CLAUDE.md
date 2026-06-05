@@ -82,7 +82,7 @@ Ne créer une pull request qu'à la demande explicite de l'utilisateur. Le titre
 
 ## Ponctuation
 - Ne jamais utiliser le tiret cadratin «&nbsp;—&nbsp;». Utiliser «&nbsp;/&nbsp;» ou «&nbsp;:&nbsp;» selon le contexte (séparateur de titre, crédit de source…), ou une virgule dans le texte courant.
-- Guillemets : `"..."` le français et pour l'anglais.
+- Guillemets : `"..."` pour le français et pour l'anglais.
 - Nombres : écrire en lettres les nombres inférieurs à 10 dans la prose.
 - Espaces insécables : placer une espace insécable (`&nbsp;`) avant les signes doubles (?, !, :, ;) et triples (...).
 
