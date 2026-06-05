@@ -1,13 +1,22 @@
-# Gestion des sources
-
-Ne commit jamais sans que je te l’aie explicitement demandé.
-
-Rédige toujours les messages de commit en anglais, sans exception.
+# Règles de gestion des sources
 
 ## Commits
+- Ne committer qu’à la demande explicite de l’utilisateur
 - Format : Conventional Commits (feat, fix, build, chore, docs, style, refactor, perf, test)
+- Scope : optionnel, à utiliser quand il apporte de la clarté (`feat(auth): ...`)
 - Langue : anglais
 - Longueur du titre : 72 caractères maximum
+- Corps : rédiger un corps quand le "pourquoi" n'est pas évident depuis le titre ; décrire la motivation, pas les changements (le diff le fait)
+- Ne jamais amender un commit déjà poussé sur le remote
+
+## Push
+Ne jamais pusher sans demande explicite de l'utilisateur, même après un commit autorisé.
+
+## Branches
+Pas de convention de nommage imposée. Créer une branche dédiée avant de travailler sur une feature ou un fix significatif, sauf si l'utilisateur indique de travailler directement sur la branche courante.
+
+## Pull requests
+Ne créer une pull request qu'à la demande explicite de l'utilisateur. Le titre suit le format Conventional Commits. Le corps décrit le contexte, les changements notables et un plan de test.
 
 # Règles de code
 
