@@ -60,6 +60,17 @@
         ]
       }
     ],
+    "Notification": [
+      {
+        "description": "Notification macOS quand Claude attend une réponse",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude attend une réponse\" with title \"Claude Code\"'"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "description": "Notification macOS à la fin de chaque tâche",
