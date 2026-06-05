@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# get.sh — Sync ~/.claude (config effective) vers le repo git
-# Usage : ./scripts/get.sh [--dry-run]
+# get.sh: Sync ~/.claude (effective config) to git repo
+# Usage: ./scripts/get.sh [--dry-run]
 
 set -euo pipefail
 
@@ -8,27 +8,27 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SOURCE_DIR="$HOME/.claude"
 
-# Couleurs
+# Colors
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; NC='\033[0m'
 info()    { echo -e "${GREEN}[INFO]${NC}  $*"; }
 warn()    { echo -e "${YELLOW}[WARN]${NC}  $*"; }
 error()   { echo -e "${RED}[ERROR]${NC} $*" >&2; }
 
 DRY_RUN=false
-[[ "${1:-}" == "--dry-run" ]] && DRY_RUN=true && info "Mode dry-run activé"
+[[ "${1:-}" == "--dry-run" ]] && DRY_RUN=true && info "Dry-run mode enabled"
 
-# ── Vérifications préalables ───────────────────────────────────────────────────
+# ── Pre-flight checks ──────────────────────────────────────────────────────────
 if ! command -v jq &>/dev/null; then
-  error "jq est requis pour traiter settings.json (brew install jq)"
+  error "jq is required to process settings.json (brew install jq)"
   exit 1
 fi
 
 if [[ ! -d "$SOURCE_DIR" ]]; then
-  error "Dossier source introuvable : $SOURCE_DIR"
+  error "Source directory not found: $SOURCE_DIR"
   exit 1
 fi
 
-# ── Fonction rsync ─────────────────────────────────────────────────────────────
+# ── rsync helper ───────────────────────────────────────────────────────────────
 do_rsync() {
   local src="$1" dst="$2"
   local flags=(-av --delete --exclude='*.log' --exclude='.DS_Store')
@@ -45,35 +45,35 @@ if [[ -f "$SOURCE_DIR/CLAUDE.md" ]]; then
   info "Sync CLAUDE.md..."
   $DRY_RUN || cp "$SOURCE_DIR/CLAUDE.md" "$REPO_DIR/CLAUDE.md"
 else
-  warn "CLAUDE.md introuvable dans $SOURCE_DIR, ignoré."
+  warn "CLAUDE.md not found in $SOURCE_DIR, skipped."
 fi
 
-# ── 2. settings.json — strip des secrets (champ "env") ────────────────────────
+# ── 2. settings.json: strip secrets (env field) ────────────────────────────────
 if [[ -f "$SOURCE_DIR/settings.json" ]]; then
-  info "Sync settings.json (secrets stripés)..."
+  info "Sync settings.json (secrets stripped)..."
 
-  # Valide que le JSON est lisible
+  # Validate JSON is readable
   if ! jq empty "$SOURCE_DIR/settings.json" 2>/dev/null; then
-    error "settings.json n'est pas un JSON valide. Abandon."
+    error "settings.json is not valid JSON. Aborting."
     exit 1
   fi
 
   if ! $DRY_RUN; then
-    # Supprime le champ "env" (contient potentiellement des API keys)
+    # Remove "env" field (may contain API keys)
     jq 'del(.env)' "$SOURCE_DIR/settings.json" > "$REPO_DIR/settings.json"
-    info "  → Champ .env retiré du settings.json versionné"
+    info "  -> .env field removed from versioned settings.json"
   fi
 
-  # Sauvegarde locale des secrets (hors repo, gitignorée)
+  # Local backup of secrets (outside repo, gitignored)
   if jq -e '.env' "$SOURCE_DIR/settings.json" &>/dev/null; then
-    warn "Des variables d'environnement existent dans settings.json"
+    warn "Environment variables found in settings.json"
     if ! $DRY_RUN; then
       jq '{env: .env}' "$SOURCE_DIR/settings.json" > "$REPO_DIR/settings.secrets.json"
-      info "  → Sauvegardé dans settings.secrets.json (gitignored)"
+      info "  -> Saved to settings.secrets.json (gitignored)"
     fi
   fi
 else
-  warn "settings.json introuvable dans $SOURCE_DIR, ignoré."
+  warn "settings.json not found in $SOURCE_DIR, skipped."
 fi
 
 # ── 3. Hooks ───────────────────────────────────────────────────────────────────
@@ -82,16 +82,16 @@ if [[ -d "$SOURCE_DIR/hooks" ]]; then
   $DRY_RUN || mkdir -p "$REPO_DIR/hooks"
   do_rsync "$SOURCE_DIR/hooks/" "$REPO_DIR/hooks/"
 else
-  info "Pas de dossier hooks/ trouvé."
+  info "No hooks/ directory found."
 fi
 
-# ── 4. Commands (slash commands custom) ────────────────────────────────────────
+# ── 4. Commands (custom slash commands) ────────────────────────────────────────
 if [[ -d "$SOURCE_DIR/commands" ]]; then
   info "Sync commands/..."
   $DRY_RUN || mkdir -p "$REPO_DIR/commands"
   do_rsync "$SOURCE_DIR/commands/" "$REPO_DIR/commands/"
 else
-  info "Pas de dossier commands/ trouvé."
+  info "No commands/ directory found."
 fi
 
-info "get.sh terminé."
+info "get.sh done."

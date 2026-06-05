@@ -1,6 +1,6 @@
 # claude-config
 
-Configuration personnelle pour Claude Code, versionnée et synchronisable.
+Personal Claude Code configuration, versioned and syncable.
 
 ## Structure
 
@@ -9,48 +9,48 @@ claude-config/
 ├── scripts/
 │   ├── get.sh        # Sync ~/.claude → repo
 │   └── deploy.sh     # Sync repo → ~/.claude
-├── hooks/            # Hooks Claude Code (PostToolUse, PreToolUse…)
-├── commands/         # Slash commands personnalisées
-├── settings.json     # Config sans secrets
-├── settings.secrets.json  # Secrets locaux — gitignored
-├── CLAUDE.md         # Instructions globales
+├── hooks/            # Claude Code hooks (PostToolUse, PreToolUse...)
+├── commands/         # Custom slash commands
+├── settings.json     # Config without secrets
+├── settings.secrets.json  # Local secrets, gitignored
+├── CLAUDE.md         # Global instructions
 └── .gitignore
 ```
 
-## Setup initial
+## Initial setup
 
 ```bash
-# 1. Rends les scripts exécutables
+# 1. Make scripts executable
 chmod +x scripts/get.sh scripts/deploy.sh
 
-# 2. Connecte au remote GitHub
-git remote add origin git@github.com:TON_USER/claude-config.git
+# 2. Connect to GitHub remote
+git remote add origin git@github.com:YOUR_USER/claude-config.git
 
-# 3. Premier sync
+# 3. First sync
 ./scripts/get.sh
 ```
 
-## Usage quotidien
+## Daily usage
 
 ```bash
-# Sauvegarder la config courante
+# Save current config
 ./scripts/get.sh
 
-# Déployer sur une nouvelle machine
+# Deploy on a new machine
 ./scripts/deploy.sh
 
-# Tester sans modifier de fichiers
+# Test without modifying files
 ./scripts/get.sh --dry-run
 ./scripts/deploy.sh --dry-run
 ```
 
 ## Secrets
 
-Les variables d'environnement (API keys, tokens) dans `settings.json` sont
-automatiquement extraites dans `settings.secrets.json` lors du push, et
-réinjectées lors du deploy. Ce fichier est gitignored — ne le committe jamais.
+Environment variables (API keys, tokens) in `settings.json` are automatically
+extracted into `settings.secrets.json` on push, and re-injected on deploy.
+This file is gitignored: never commit it.
 
-## Dépendances
+## Dependencies
 
-- `jq` : `brew install jq`
-- `rsync` : inclus sur macOS
+- `jq`: `brew install jq`
+- `rsync`: included on macOS

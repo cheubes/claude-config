@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# deploy.sh — Déploie la config du repo vers ~/.claude
-# Usage : ./scripts/deploy.sh [--dry-run] [--no-backup]
+# deploy.sh: Deploy repo config to ~/.claude
+# Usage: ./scripts/deploy.sh [--dry-run] [--no-backup]
 
 set -euo pipefail
 
@@ -9,7 +9,7 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TARGET_DIR="$HOME/.claude"
 BACKUP_BASE="$HOME/.claude-backups"
 
-# Couleurs
+# Colors
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; CYAN='\033[0;36m'; NC='\033[0m'
 info()    { echo -e "${GREEN}[INFO]${NC}  $*"; }
 warn()    { echo -e "${YELLOW}[WARN]${NC}  $*"; }
@@ -23,25 +23,25 @@ for arg in "${@:-}"; do
   [[ "$arg" == "--no-backup" ]] && DO_BACKUP=false
 done
 
-$DRY_RUN && info "Mode dry-run activé — aucun fichier ne sera modifié"
+$DRY_RUN && info "Dry-run mode enabled: no files will be modified"
 
-# ── Vérifications préalables ───────────────────────────────────────────────────
+# ── Pre-flight checks ──────────────────────────────────────────────────────────
 if ! command -v jq &>/dev/null; then
-  error "jq est requis (brew install jq)"
+  error "jq is required (brew install jq)"
   exit 1
 fi
 
 # ── git pull ───────────────────────────────────────────────────────────────────
-section "Mise à jour du repo"
+section "Repo update"
 cd "$REPO_DIR"
 if git ls-remote --exit-code --heads origin main &>/dev/null; then
   git pull
-  info "Repo à jour."
+  info "Repo up to date."
 else
-  warn "Aucune branche 'main' sur le remote — pull ignoré (premier déploiement ?)."
+  warn "No 'main' branch on remote: pull skipped (first deployment?)."
 fi
 
-# ── Backup de la config actuelle ───────────────────────────────────────────────
+# ── Current config backup ──────────────────────────────────────────────────────
 section "Backup"
 if $DO_BACKUP && [[ -d "$TARGET_DIR" ]]; then
   TIMESTAMP=$(date '+%Y%m%d-%H%M%S')
@@ -49,24 +49,24 @@ if $DO_BACKUP && [[ -d "$TARGET_DIR" ]]; then
   if ! $DRY_RUN; then
     mkdir -p "$BACKUP_DIR"
     cp -r "$TARGET_DIR" "$BACKUP_DIR/claude"
-    info "Backup créé : $BACKUP_DIR/claude"
+    info "Backup created: $BACKUP_DIR/claude"
 
-    # Nettoyage : garde seulement les 10 derniers backups
+    # Cleanup: keep only the last 10 backups
     BACKUP_COUNT=$(ls -1 "$BACKUP_BASE" | wc -l)
     if (( BACKUP_COUNT > 10 )); then
       ls -1t "$BACKUP_BASE" | tail -n +11 | while read -r old; do
         rm -rf "$BACKUP_BASE/$old"
-        info "Ancien backup supprimé : $old"
+        info "Old backup removed: $old"
       done
     fi
   else
-    info "[dry-run] Backup simulé → $BACKUP_DIR/claude"
+    info "[dry-run] Simulated backup: $BACKUP_DIR/claude"
   fi
 else
-  $DO_BACKUP || warn "Backup désactivé (--no-backup)"
+  $DO_BACKUP || warn "Backup disabled (--no-backup)"
 fi
 
-# ── Fonction rsync ─────────────────────────────────────────────────────────────
+# ── rsync helper ───────────────────────────────────────────────────────────────
 do_rsync() {
   local src="$1" dst="$2"
   local flags=(-av --exclude='*.log' --exclude='.DS_Store')
@@ -74,57 +74,57 @@ do_rsync() {
   rsync "${flags[@]}" "$src" "$dst"
 }
 
-# ── Déploiement ────────────────────────────────────────────────────────────────
-section "Déploiement"
+# ── Deployment ─────────────────────────────────────────────────────────────────
+section "Deployment"
 $DRY_RUN || mkdir -p "$TARGET_DIR"
 
 # 1. CLAUDE.md
 if [[ -f "$REPO_DIR/CLAUDE.md" ]]; then
-  info "Déploiement de CLAUDE.md..."
+  info "Deploying CLAUDE.md..."
   $DRY_RUN || cp "$REPO_DIR/CLAUDE.md" "$TARGET_DIR/CLAUDE.md"
 fi
 
-# 2. settings.json — merge avec les secrets locaux
+# 2. settings.json: merge with local secrets
 if [[ -f "$REPO_DIR/settings.json" ]]; then
-  info "Déploiement de settings.json..."
+  info "Deploying settings.json..."
 
   if [[ -f "$REPO_DIR/settings.secrets.json" ]]; then
-    info "  → Fusion avec settings.secrets.json (secrets locaux)"
+    info "  -> Merging with settings.secrets.json (local secrets)"
     if ! $DRY_RUN; then
-      # Merge : le repo est la base, on ré-injecte les secrets par-dessus
+      # Merge: repo is the base, secrets are injected on top
       jq -s '.[0] * .[1]' \
         "$REPO_DIR/settings.json" \
         "$REPO_DIR/settings.secrets.json" \
         > "$TARGET_DIR/settings.json"
-      info "  → settings.json fusionné avec succès"
+      info "  -> settings.json merged successfully"
     fi
   else
-    warn "  Pas de settings.secrets.json trouvé — settings.json déployé sans le champ env"
-    warn "  Si tu as des API keys, crée manuellement $REPO_DIR/settings.secrets.json"
+    warn "  No settings.secrets.json found: settings.json deployed without env field"
+    warn "  If you have API keys, create $REPO_DIR/settings.secrets.json manually"
     $DRY_RUN || cp "$REPO_DIR/settings.json" "$TARGET_DIR/settings.json"
   fi
 fi
 
 # 3. Hooks
 if [[ -d "$REPO_DIR/hooks" ]]; then
-  info "Déploiement de hooks/..."
+  info "Deploying hooks/..."
   $DRY_RUN || mkdir -p "$TARGET_DIR/hooks"
   do_rsync "$REPO_DIR/hooks/" "$TARGET_DIR/hooks/"
-  # Rend les scripts exécutables
+  # Make scripts executable
   $DRY_RUN || find "$TARGET_DIR/hooks" -name "*.sh" -exec chmod +x {} \;
 fi
 
 # 4. Commands
 if [[ -d "$REPO_DIR/commands" ]]; then
-  info "Déploiement de commands/..."
+  info "Deploying commands/..."
   $DRY_RUN || mkdir -p "$TARGET_DIR/commands"
   do_rsync "$REPO_DIR/commands/" "$TARGET_DIR/commands/"
 fi
 
-section "Résultat"
+section "Result"
 if $DRY_RUN; then
-  warn "Dry-run terminé — aucun fichier modifié."
+  warn "Dry-run complete: no files modified."
 else
-  info "Config déployée dans $TARGET_DIR"
-  info "Note : ~/.claude.json (session OAuth) n'a pas été touché."
+  info "Config deployed to $TARGET_DIR"
+  info "Note: ~/.claude.json (OAuth session) was not modified."
 fi
