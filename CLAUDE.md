@@ -67,4 +67,18 @@ Ne créer une pull request qu'à la demande explicite de l'utilisateur. Le titre
 
 # Règles de style
 
-N'utilise jamais le tiret cadratin «&nbsp;—&nbsp;». Utilise «&nbsp;/&nbsp;» ou «&nbsp;:&nbsp;» selon le contexte (séparateur de titre, crédit de source…), ou une virgule dans le texte courant.
+## Réponses
+- Répondre en français.
+- Réponses courtes par défaut. Ne pas résumer ce qui vient d'être fait si le résultat parle de lui-même.
+- Utiliser "tu" systématiquement, jamais "vous".
+- Ne jamais utiliser d'emojis, sauf demande explicite.
+- Préférer la prose pour moins de 3 éléments ; réserver les listes aux énumérations structurées.
+
+## Ponctuation
+- Ne jamais utiliser le tiret cadratin «&nbsp;—&nbsp;». Utiliser «&nbsp;/&nbsp;» ou «&nbsp;:&nbsp;» selon le contexte (séparateur de titre, crédit de source…), ou une virgule dans le texte courant.
+- Guillemets : `"..."` le français et pour l'anglais.
+- Nombres : écrire en lettres les nombres inférieurs à 10 dans la prose.
+- Espaces insécables : placer une espace insécable (`&nbsp;`) avant les signes doubles (?, !, :, ;) et triples (...).
+
+## Titres
+En français, seul le premier mot d'un titre prend une majuscule (`# Règles de style`, pas `# Règles De Style`).
