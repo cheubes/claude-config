@@ -23,7 +23,8 @@
       "Read(//tmp/**)",
       "Bash(dig *)",
       "WebSearch",
-      "WebFetch"
+      "WebFetch",
+      "Skill(claude-api:*)"
     ]
   },
   "effortLevel": "high",
