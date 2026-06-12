@@ -1,5 +1,3 @@
----
-
 # Règles de sécurité
 
 ## Secrets et credentials
