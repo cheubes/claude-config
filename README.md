@@ -47,7 +47,7 @@ git remote add origin git@github.com:YOUR_USER/claude-config.git
 ## Secrets
 
 Environment variables (API keys, tokens) in `settings.json` are automatically
-extracted into `settings.secrets.json` on push, and re-injected on deploy.
+extracted into `settings.secrets.json` on get, and re-injected on deploy.
 This file is gitignored: never commit it.
 
 ## Dependencies
