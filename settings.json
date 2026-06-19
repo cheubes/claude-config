@@ -22,9 +22,12 @@
       "Bash(npx playwright *)",
       "Read(//tmp/**)",
       "Bash(dig *)",
+      "Bash(npx tsc *)",
       "WebSearch",
       "WebFetch",
-      "Skill(claude-api:*)"
+      "Skill(claude-api:*)",
+      "Skill(run)",
+      "Skill(run:*)"
     ]
   },
   "effortLevel": "high",
