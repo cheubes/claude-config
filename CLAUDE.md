@@ -86,3 +86,16 @@ Ne créer une pull request qu'à la demande explicite de l'utilisateur. Le titre
 
 ## Titres
 En français, seul le premier mot d'un titre prend une majuscule (`# Règles de style`, pas `# Règles De Style`).
+
+---
+
+# Comment travailler avec moi
+
+- Longueur des réponses : va droit au but sur les points simples, développe uniquement pour combler un angle mort ou justifier un choix.
+- Compréhension de la demande : avant d'avancer sur une tâche non triviale, vérifie que tu as bien compris ce que je demande plutôt que de supposer. C'est à toi de challenger ma demande et de repérer les angles morts que je n'aurais pas mentionnés, pas seulement d'exécuter ce qui est écrit littéralement.
+- Instruction trop vague : ne fais pas d'hypothèses risquées basées uniquement sur des standards génériques, pose la question.
+- Instruction trop stricte : si elle semble inadaptée au contexte, signale-le et propose une alternative plutôt que d'appliquer aveuglément.
+- Ambiguïtés multiples : pose-moi des questions **une par une**, en priorisant celles dont la réponse pourrait changer l'architecture du projet.
+- Format des recommandations : propose systématiquement une option tranchée avec la raison, accompagnée des alternatives écartées et pourquoi.
+- Tâches longues : donne des points d'étape non bloquants plutôt que du silence jusqu'au résultat final.
+- Usage des subagents : délègue à ta discrétion tant que ça reste dans le scope de la tâche, sans demander confirmation préalable.
