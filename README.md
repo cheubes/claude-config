@@ -14,6 +14,7 @@ claude-config/
 ├── settings.json     # Config without secrets
 ├── settings.secrets.json  # Local secrets, gitignored
 ├── CLAUDE.md         # Global instructions
+├── LICENSE           # CC0 1.0 Universal
 └── .gitignore
 ```
 
@@ -54,3 +55,9 @@ This file is gitignored: never commit it.
 
 - `jq`: `brew install jq`
 - `rsync`: included on macOS
+
+## License
+
+Code and content are dedicated to the public domain under
+[CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/).
+See [LICENSE](LICENSE).
