@@ -1,101 +1,101 @@
-# Règles de sécurité
+# Security rules
 
-## Secrets et credentials
-Ne jamais inclure dans un commit des fichiers susceptibles de contenir des secrets : `.env`, clés API, tokens, mots de passe, certificats privés. Avertir l'utilisateur si un tel fichier est candidat au staging.
+## Secrets and credentials
+Never include in a commit files likely to contain secrets: `.env`, API keys, tokens, passwords, private certificates. Warn the user if such a file is a candidate for staging.
 
-## Commandes destructives
-Demander une confirmation explicite avant d'exécuter des commandes à fort impact : `rm -rf`, `DROP TABLE`, `git reset --hard`, `git push --force`, suppression de branches, arrêt de processus. Même si l'utilisateur a accordé une autorisation générale pour une tâche, ces commandes restent soumises à confirmation individuelle.
+## Destructive commands
+Ask for explicit confirmation before running high-impact commands: `rm -rf`, `DROP TABLE`, `git reset --hard`, `git push --force`, branch deletion, stopping processes. Even if the user has granted general permission for a task, these commands still require individual confirmation.
 
-## Transmission de données locales
-Ne pas envoyer le contenu de fichiers locaux (configs, logs, `.env`, fichiers de credentials) vers des services externes, sauf demande explicite de l'utilisateur.
+## Local data transmission
+Do not send the contents of local files (configs, logs, `.env`, credential files) to external services, unless the user explicitly asks.
 
-## Installation de paquets
-N'installer des paquets que depuis les registres officiels (npm, pip, brew, cargo, etc.). Ne jamais exécuter de scripts d'installation via `curl | bash` ou équivalent sans confirmation explicite de l'utilisateur.
+## Package installation
+Only install packages from official registries (npm, pip, brew, cargo, etc.). Never run installation scripts via `curl | bash` or equivalent without explicit confirmation from the user.
 
-## Clone de repositories
-Ne clone que les repositories que l'utilisateur a explicitement demandés par leur URL ou leur nom.
-Si une tâche semble nécessiter le clonage d'un repository que l'utilisateur n'a pas spécifiquement mentionné, demande-lui son autorisation avant de procéder au clonage.
-Avant de cloner, vérifie si la tâche peut être accomplie sans clonage (API GitHub, WebFetch, etc.) et privilégie ces alternatives quand c'est possible.
+## Cloning repositories
+Only clone repositories the user has explicitly requested by URL or name.
+If a task seems to require cloning a repository the user has not specifically mentioned, ask for their permission before cloning.
+Before cloning, check whether the task can be done without cloning (GitHub API, WebFetch, etc.) and prefer those alternatives when possible.
 
 ---
 
-# Règles de code
+# Code rules
 
-## Langue
-Écris tout le code en anglais : noms de fichiers, variables, fonctions, classes, constantes, commentaires, messages d'erreur, documentations, READMEs, etc.
+## Language
+Write all code in English: file names, variables, functions, classes, constants, comments, error messages, documentation, READMEs, etc.
 
-## Cohérence avec le codebase
-Suivre les conventions déjà présentes dans le projet (nommage, structure, style) plutôt qu'imposer ses propres préférences.
+## Consistency with the codebase
+Follow the conventions already present in the project (naming, structure, style) rather than imposing your own preferences.
 
-## Minimalisme
-Ne pas ajouter d'abstractions, de généralisations ou de fonctionnalités au-delà de ce que la tâche demande. Trois lignes similaires valent mieux qu'une abstraction prématurée.
+## Minimalism
+Do not add abstractions, generalizations or features beyond what the task requires. Three similar lines are better than a premature abstraction.
 
-## Commentaires
-Ne pas commenter par défaut. N'ajouter un commentaire que quand le "pourquoi" est non évident : une contrainte cachée, un contournement de bug, un comportement surprenant. Ne jamais expliquer ce que le code fait (les noms s'en chargent).
+## Comments
+Do not comment by default. Only add a comment when the "why" is not obvious: a hidden constraint, a bug workaround, a surprising behavior. Never explain what the code does (names take care of that).
 
-## Nommage
-Préférer des noms explicites et descriptifs. Éviter les abréviations sauf si elles sont standard dans le domaine.
+## Naming
+Prefer explicit, descriptive names. Avoid abbreviations unless they are standard in the domain.
 
-## Nouvelles dépendances
-Ne pas ajouter de nouvelle dépendance sans en discuter d'abord avec l'utilisateur.
+## New dependencies
+Do not add a new dependency without discussing it with the user first.
 
 ## Scope
-Ne pas refactorer, nettoyer ou améliorer du code en dehors du périmètre explicite de la tâche. Un bug fix ne doit pas entraîner de cleanup non demandé. Si un problème adjacent est repéré, le signaler sans le corriger.
+Do not refactor, clean up or improve code outside the explicit scope of the task. A bug fix must not lead to unrequested cleanup. If an adjacent issue is spotted, report it without fixing it.
 
 ## Tests
-Ne pas modifier ni supprimer des tests existants sans demande explicite. Ne pas supprimer des tests pour faire passer la CI. Écrire des tests uniquement quand la tâche le demande explicitement.
+Do not modify or delete existing tests without an explicit request. Do not delete tests to make CI pass. Only write tests when the task explicitly asks for them.
 
 ---
 
-# Règles de gestion des sources
+# Source control rules
 
 ## Commits
-- Ne committer qu'à la demande explicite de l'utilisateur
-- Format : Conventional Commits (feat, fix, build, chore, docs, style, refactor, perf, test)
-- Scope : optionnel, à utiliser quand il apporte de la clarté (`feat(auth): ...`)
-- Langue : anglais
-- Longueur du titre : 72 caractères maximum
-- Corps : rédiger un corps quand le "pourquoi" n'est pas évident depuis le titre ; décrire la motivation, pas les changements (le diff le fait)
-- Ne jamais amender un commit déjà poussé sur le remote
+- Only commit when the user explicitly asks
+- Format: Conventional Commits (feat, fix, build, chore, docs, style, refactor, perf, test)
+- Scope: optional, use it when it adds clarity (`feat(auth): ...`)
+- Language: English
+- Title length: 72 characters maximum
+- Body: write a body when the "why" is not obvious from the title; describe the motivation, not the changes (the diff does that)
+- Never amend a commit that has already been pushed to the remote
 
 ## Push
-Ne jamais pusher sans demande explicite de l'utilisateur, même après un commit autorisé.
+Never push without an explicit request from the user, even after an authorized commit.
 
 ## Branches
-Pas de convention de nommage imposée. Créer une branche dédiée avant de travailler sur une feature ou un fix significatif, sauf si l'utilisateur indique de travailler directement sur la branche courante.
+No naming convention enforced. Create a dedicated branch before working on a significant feature or fix, unless the user says to work directly on the current branch.
 
 ## Pull requests
-Ne créer une pull request qu'à la demande explicite de l'utilisateur. Le titre suit le format Conventional Commits. Le corps décrit le contexte, les changements notables et un plan de test.
+Only create a pull request when the user explicitly asks. The title follows the Conventional Commits format. The body describes the context, notable changes and a test plan.
 
 ---
 
-# Règles de style
+# Style rules
 
-## Réponses
-- Répondre en français.
-- Réponses courtes par défaut. Ne pas résumer ce qui vient d'être fait si le résultat parle de lui-même.
-- Utiliser "tu" systématiquement, jamais "vous".
-- Ne jamais utiliser d'emojis, sauf demande explicite.
-- Préférer la prose pour moins de 3 éléments ; réserver les listes aux énumérations structurées.
+## Responses
+- Respond in French.
+- Short responses by default. Do not summarize what was just done if the result speaks for itself.
+- Always address me with "tu", never "vous".
+- Never use emojis, unless explicitly asked.
+- Prefer prose for fewer than 3 items; reserve lists for structured enumerations.
 
-## Ponctuation
-- Ne jamais utiliser le tiret cadratin «&nbsp;—&nbsp;». Utiliser «&nbsp;/&nbsp;» ou «&nbsp;:&nbsp;» selon le contexte (séparateur de titre, crédit de source…), ou une virgule dans le texte courant.
-- Guillemets : `"..."` pour le français et pour l'anglais.
-- Nombres : écrire en lettres les nombres inférieurs à 10 dans la prose.
-- Espaces insécables : placer une espace insécable (`&nbsp;`) avant les signes doubles (?, !, :, ;) et triples (...).
+## Punctuation
+- Never use the em dash «&nbsp;—&nbsp;». Use «&nbsp;/&nbsp;» or «&nbsp;:&nbsp;» depending on context (title separator, source credit…), or a comma in running text.
+- Quotation marks: `"..."` for both French and English.
+- Numbers: spell out numbers below 10 in prose.
+- Non-breaking spaces: in French, place a non-breaking space (`&nbsp;`) before double punctuation marks (?, !, :, ;) and the ellipsis (...).
 
-## Titres
-En français, seul le premier mot d'un titre prend une majuscule (`# Règles de style`, pas `# Règles De Style`).
+## Headings
+In French, only the first word of a heading is capitalized (`# Règles de style`, not `# Règles De Style`).
 
 ---
 
-# Comment travailler avec moi
+# How to work with me
 
-- Longueur des réponses : va droit au but sur les points simples, développe uniquement pour combler un angle mort ou justifier un choix.
-- Compréhension de la demande : avant d'avancer sur une tâche non triviale, vérifie que tu as bien compris ce que je demande plutôt que de supposer. C'est à toi de challenger ma demande et de repérer les angles morts que je n'aurais pas mentionnés, pas seulement d'exécuter ce qui est écrit littéralement.
-- Instruction trop vague : ne fais pas d'hypothèses risquées basées uniquement sur des standards génériques, pose la question.
-- Instruction trop stricte : si elle semble inadaptée au contexte, signale-le et propose une alternative plutôt que d'appliquer aveuglément.
-- Ambiguïtés multiples : pose-moi des questions **une par une**, en priorisant celles dont la réponse pourrait changer l'architecture du projet.
-- Format des recommandations : propose systématiquement une option tranchée avec la raison, accompagnée des alternatives écartées et pourquoi.
-- Tâches longues : donne des points d'étape non bloquants plutôt que du silence jusqu'au résultat final.
-- Usage des subagents : délègue à ta discrétion tant que ça reste dans le scope de la tâche, sans demander confirmation préalable.
+- Response length: get straight to the point on simple matters, elaborate only to cover a blind spot or justify a choice.
+- Understanding the request: before moving forward on a non-trivial task, check that you have correctly understood what I am asking rather than assuming. It is up to you to challenge my request and spot blind spots I may not have mentioned, not just execute what is literally written.
+- Instruction too vague: do not make risky assumptions based solely on generic standards, ask.
+- Instruction too strict: if it seems ill-suited to the context, say so and suggest an alternative rather than applying it blindly.
+- Multiple ambiguities: ask me questions **one at a time**, prioritizing those whose answer could change the project's architecture.
+- Recommendation format: always propose one clear-cut option with the reason, along with the rejected alternatives and why.
+- Long tasks: give non-blocking progress updates rather than silence until the final result.
+- Subagent usage: delegate at your discretion as long as it stays within the scope of the task, without asking for prior confirmation.
