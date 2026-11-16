@@ -1,46 +1,6 @@
 {
   "permissions": {
     "allow": [
-      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' *)",
-      "Bash(/usr/local/bin/exiftool *)",
-      "Bash(awk *)",
-      "Bash(bundle exec *)",
-      "Bash(cat *)",
-      "Bash(chromium-cli *)",
-      "Bash(command -v compare)",
-      "Bash(command -v magick)",
-      "Bash(compare *)",
-      "Bash(curl *)",
-      "Bash(dig *)",
-      "Bash(find *)",
-      "Bash(fswatch *)",
-      "Bash(gh *)",
-      "Bash(git *)",
-      "Bash(grep *)",
-      "Bash(jq *)",
-      "Bash(kill *)",
-      "Bash(lessc *)",
-      "Bash(ls *)",
-      "Bash(magick compare *)",
-      "Bash(md5 *)",
-      "Bash(node *)",
-      "Bash(npm *)",
-      "Bash(npx --yes -p playwright-core node compare.js)",
-      "Bash(npx --yes playwright --version)",
-      "Bash(npx chromium-cli *)",
-      "Bash(npx playwright *)",
-      "Bash(npx tsc *)",
-      "Bash(pip3 *)",
-      "Bash(pkill -f \"vite\")",
-      "Bash(python *)",
-      "Bash(python3 *)",
-      "Bash(which chrome-cli *)",
-      "Bash(xxd)",
-      "Read(//Applications/**)",
-      "Read(//Applications/Google Chrome.app/**)",
-      "Read(//Users/christophe/.cache/**)",
-      "Read(//Users/christophe/Library/Caches/**)",
-      "Read(//tmp/**)",
       "Skill(artifact-design)",
       "Skill(artifact-design:*)",
       "Skill(claude-api:*)",
@@ -101,5 +61,13 @@
       }
     ]
   },
-  "effortLevel": "xhigh"
+  "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
+  "theme": "auto",
+  "agentPushNotifEnabled": true,
+  "tui": "fullscreen"
 }
